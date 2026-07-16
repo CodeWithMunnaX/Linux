@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Commands Ultimate Master Directory | CodeWithMunnaX</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1f2937;
+            --accent-indigo: #6366f1;
+            --accent-violet: #8b5cf6;
+            --accent-emerald: #10b981;
+            --accent-rose: #f43f5e;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-glass: rgba(17, 24, 39, 0.7);
+            --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Light Mode Variables Toggle */
+        [data-theme="light"] {
+            --bg-primary: #f3f4f6;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f9fafb;
+            --accent-indigo: #4f46e5;
+            --accent-violet: #7c3aed;
+            --accent-emerald: #059669;
+            --accent-rose: #e11d48;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --card-glass: rgba(255, 255, 255, 0.85);
+            --shadow-premium: 0 10px 30px -15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        /* Scrollbar custom styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-indigo);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-violet);
+        }
+
+        /* Header / Brand section */
+        header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+            100% { box-shadow: 0 4px 25px rgba(139, 92, 246, 0.6); }
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg) scale(1.05);
+            background: var(--accent-indigo);
+            color: white;
+        }
+
+        /* Container Layout */
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: calc(100vh - 83px);
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Sidebar Styling */
+        aside {
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: calc(100vh - 83px);
+            position: sticky;
+            top: 83px;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            padding-left: 10px;
+            font-weight: 700;
+        }
+
+        .category-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .category-item {
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-item:hover, .category-item.active {
+            background: rgba(99, 102, 241, 0.12);
+            color: var(--accent-indigo);
+            padding-left: 18px;
+        }
+
+        .category-item.active {
+            border-left: 3px solid var(--accent-indigo);
+            font-weight: 600;
+        }
+
+        /* Main Workspace Content Area */
+        main {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 100%;
+            overflow-y: auto;
+        }
+
+        /* Search Section */
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-bar {
+            width: 100%;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px 20px 18px 50px;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            font-family: inherit;
+            outline: none;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-premium);
+        }
+
+        .search-bar:focus {
+            border-color: var(--accent-indigo);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
+        /* Quick Info Header Card */
+        .intro-banner {
+            background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%);
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--shadow-premium);
+        }
+
+        .intro-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .intro-banner h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #a5b4fc, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intro-banner p {
+            color: #d1d5db;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        /* Terminal Mock Simulator Section */
+        .terminal-container {
+            background-color: #0d1117;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-premium);
+            overflow: hidden;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .terminal-header {
+            background-color: #161b22;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background-color: #ff5f56; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27c93f; }
+
+        .terminal-title {
+            color: #8b949e;
+            font-size: 0.8rem;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            height: 250px;
+            overflow-y: auto;
+            color: #c9d1d9;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .terminal-line {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .terminal-prompt {
+            color: #58a6ff;
+            font-weight: bold;
+        }
+
+        .terminal-input-field {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-family: inherit;
+            font-size: inherit;
+            flex-grow: 1;
+        }
+
+        .terminal-output {
+            color: #8b949e;
+            white-space: pre-wrap;
+            padding-left: 15px;
+            margin-bottom: 5px;
+        }
+
+        /* Commands Grid View */
+        .commands-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .command-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            transition: var(--transition-smooth);
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .command-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-indigo);
+            box-shadow: var(--shadow-premium);
+        }
+
+        .command-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .command-badge {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent-indigo);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .command-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Fira Code', monospace;
+            color: var(--accent-violet);
+        }
+
+        .command-desc {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .command-detail-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .command-detail-label i {
+            color: var(--accent-indigo);
+        }
+
+        .command-syntax-box, .command-example-box {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        pre {
+            background-color: var(--bg-tertiary);
+            color: #e5e7eb;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition-smooth);
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-indigo);
+            color: white;
+            border-color: var(--accent-indigo);
+        }
+
+        /* Options Table */
+        .options-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .options-table th, .options-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .options-table th {
+            background-color: var(--bg-tertiary);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .options-table td code {
+            font-family: 'Fira Code', monospace;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-indigo);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        /* Expanded Details Grid */
+        .details-extra {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .details-extra {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .extra-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .extra-box.pitfall {
+            border-left: 4px solid var(--accent-rose);
+            background: rgba(244, 63, 94, 0.03);
+        }
+
+        .extra-box.pitfall strong {
+            color: var(--accent-rose);
+        }
+
+        /* Tips & Tricks Alert section inside card */
+        .tip-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 4px solid var(--accent-emerald);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .tip-box strong {
+            color: var(--accent-emerald);
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 45px 20px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .footer-brand span {
+            background: linear-gradient(to right, var(--accent-indigo), var(--accent-violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            border: 1px solid var(--border-color);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            color: white;
+        }
+
+        .social-link.insta:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4);
+        }
+
+        .social-link.yt:hover {
+            background: #ff0000;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 900px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: static;
+                max-height: none;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo-area">
+            <div class="logo-icon">&gt;_</div>
+            <div class="logo-text">CodeWithMunnaX</div>
+        </div>
+        <div class="header-actions">
+            <button class="theme-toggle" id="themeBtn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Workspace container -->
+    <div class="app-container">
+        
+        <!-- Sidebar Categories -->
+        <aside>
+            <div class="sidebar-title">Categories</div>
+            <ul class="category-list">
+                <li class="category-item active" data-category="all">
+                    <i class="fa-solid fa-layer-group"></i> All Commands
+                </li>
+                <li class="category-item" data-category="file">
+                    <i class="fa-solid fa-folder-open"></i> File & Directory
+                </li>
+                <li class="category-item" data-category="text">
+                    <i class="fa-solid fa-file-lines"></i> Text & Editing
+                </li>
+                <li class="category-item" data-category="system">
+                    <i class="fa-solid fa-microchip"></i> System & Resources
+                </li>
+                <li class="category-item" data-category="network">
+                    <i class="fa-solid fa-wifi"></i> Network & Transfer
+                </li>
+                <li class="category-item" data-category="permission">
+                    <i class="fa-solid fa-shield-halved"></i> Permissions & Auth
+                </li>
+                <li class="category-item" data-category="utility">
+                    <i class="fa-solid fa-screwdriver-wrench"></i> Utilities
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main>
+            
+            <!-- Banner -->
+            <div class="intro-banner">
+                <h2>Linux Commands Master Directory</h2>
+                <p>An in-depth learning resources database containing comprehensive explanations, syntactic structures, real-world scripts, options tables, and common errors. Type commands inside the simulated console to test live outputs!</p>
+            </div>
+
+            <!-- Search Area -->
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" class="search-bar" id="searchInput" placeholder="Search commands, options, explanations (e.g. tar, chmod, grep)...">
+            </div>
+
+            <!-- Interactive Terminal Simulator -->
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                    </div>
+                    <div class="terminal-title">bash - CodeWithMunnaX Terminal Live Simulator</div>
+                    <div style="width: 50px;"></div>
+                </div>
+                <div class="terminal-body" id="terminalBody">
+                    <div class="terminal-line">Welcome to CodeWithMunnaX Linux Terminal! Type 'help' to show all interactive commands.</div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">munna@server:~$</span>
+                        <input type="text" class="terminal-input-field" id="terminalInput" autofocus autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header indicating list -->
+            <h3 style="font-size: 1.5rem; margin-top: 10px; font-weight: 600;">Command Catalog & Detailed Explanations</h3>
+
+            <!-- Commands grid target -->
+            <div class="commands-grid" id="commandsGrid">
+                <!-- Javascript will inject cards here -->
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-brand"><span>CodeWithMunnaX</span> Linux Master Guide</div>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 15px;">Over 50+ essential commands documented in full detail with syntax, pitfalls, examples, options, and live simulation capabilities. Designed for rapid learning.</p>
+        
+        <div class="footer-socials">
+            <a href="https://instagram.com/" target="_blank" class="social-link insta" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://youtube.com/" target="_blank" class="social-link yt" aria-label="YouTube">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+        </div>
+        <div class="footer-text">
+            &copy; 2026 CodeWithMunnaX. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Main JavaScript Logic and Comprehensive Dataset -->
+    <script>
+        // Large detailed command database with deep explanations
+        const commandsData = [
+            // Category: File & Directory
+            {
+                name: "pwd",
+                category: "file",
+                definition: "Displays the absolute path of the current working directory from the absolute root directory ('/').",
+                syntax: "pwd [options]",
+                example: "pwd",
+                sampleOutput: "/home/munna/projects/backend",
+                explanation: "Stands for 'Print Working Directory'. The operating system maintains a pointer to the folder you are currently operating in. Since relative commands (like 'ls' or 'rm') execute contextually inside this current path, 'pwd' helps verify your precise location before executing destructive modifications.",
+                options: [
+                    { flag: "-P", desc: "Print the physical directory structure, resolving all symbolic links to their physical pathways" },
+                    { flag: "-L", desc: "Print the logical directory pathway (default behavior; retains symbolic paths)" }
+                ],
+                realWorld: "Used frequently inside bash setup scripts to capture the current execution directory path and assign it to variables (e.g. CURRENT_DIR=$(pwd)).",
+                pitfall: "Assuming 'pwd' resolves physical paths by default. If you navigated via symlinks, standard 'pwd' prints the symlink tree. Always use 'pwd -P' when validating physical mount folders.",
+                tip: "Extremely safe command. Executing pwd will never alter files, change permissions, or write state metadata.",
+                mockResponse: "/home/munna/projects/backend"
+            },
+            {
+                name: "ls",
+                category: "file",
+                definition: "Lists directory contents including nested subfolders, files, permission metadata, sizes, and modifications.",
+                syntax: "ls [options] [path]",
+                example: "ls -laSh /var/log",
+                sampleOutput: "total 2.4M\n-rw-r-----  1 root adm  1.2M Jul 16 10:30 syslog\n-rw-r--r--  1 root root 800K Jul 15 22:15 dpkg.log\ndrwxr-xr-x 20 root root 4.0K Jul 16 09:00 ..",
+                explanation: "Queries the directory node structure in the filesystem block and prints matching directory contents. Offers options to sort list files by size (-S), filter list recursively (-R), reveal hidden directories (-a), and format files nicely (-h).",
+                options: [
+                    { flag: "-l", desc: "Trigger detailed long list layout showcasing type, permissions, owner, group size, and last modified date" },
+                    { flag: "-a", desc: "Show all elements including hidden files (whose filenames start with a dot)" },
+                    { flag: "-h", desc: "Formats bytes output size automatically to readable blocks (K, M, G)" },
+                    { flag: "-S", desc: "Sort list of outputs descending by file sizes" },
+                    { flag: "-t", desc: "Sort output by modification times, showcasing newest records first" }
+                ],
+                realWorld: "Used daily to inspect permissions to check if scripts are executable, or tracking down the largest file inside directories using 'ls -laS'.",
+                pitfall: "Parsing raw 'ls' outputs inside automation bash scripts is bad practice because special characters or spaces in filenames can break scripts. Use shell wildcards or find commands instead.",
+                tip: "Configure a custom bash alias 'alias ll=\"ls -lah\"' inside ~/.bashrc for quick standard inspections.",
+                mockResponse: "total 12\n-rw-r--r-- 1 munna users  150 Jul 16 10:39 notes.txt\ndrwxr-xr-x 2 munna users 4096 Jul 16 10:40 projects\n-rwxr-xr-x 1 munna users  820 Jul 16 10:40 script.sh"
+            },
+            {
+                name: "cd",
+                category: "file",
+                definition: "Changes the shell's active current directory path to navigate filesystems.",
+                syntax: "cd [directory_path]",
+                example: "cd /etc/nginx/sites-available",
+                sampleOutput: "(Terminal navigation feedback: prompt string path updates to targets)",
+                explanation: "Navigates directories. Accepts both absolute paths (starting with '/') and relative paths (calculated from the current working directory). The shell tracks special placeholders: '.' represents current, '..' is parent, and '~' is current user home.",
+                options: [
+                    { flag: "..", desc: "Move parent level upward" },
+                    { flag: "~", desc: "Navigate instantly to home folder configuration (/home/username)" },
+                    { flag: "-", desc: "Switch back to the previous directory path user visited before this" }
+                ],
+                realWorld: "Moving quickly between source assets and logs. For instance, 'cd -' is highly convenient when bouncing between a script editor folder and root log directory.",
+                pitfall: "Typing directory names with spaces directly without quoting them (e.g. cd my project instead of cd 'my project'). This results in argument split errors.",
+                tip: "Use Tab autocomplete extensively while typing directory names to avoid manual spelling errors.",
+                mockResponse: "Switched directory path successfully."
+            },
+            {
+                name: "mkdir",
+                category: "file",
+                definition: "Creates one or multiple new folder structures at the target path location.",
+                syntax: "mkdir [options] directory_names",
+                example: "mkdir -p src/controllers/auth",
+                sampleOutput: "(Silent execution on success)",
+                explanation: "Allocates blocks on the drive filesystem to map a new directory node. If parent paths do not exist, standard execution errors out. The recursive option '-p' resolves this by generating parent folders seamlessly.",
+                options: [
+                    { flag: "-p", desc: "Create parent directories recursively as needed without triggering error alerts" },
+                    { flag: "-m", desc: "Assign explicit file mode authorization permissions (like chmod) during folder creation" }
+                ],
+                realWorld: "Used during deployment pipeline initializations to setup required structural frameworks automatically: 'mkdir -p /var/www/app/logs'.",
+                pitfall: "Attempting to create nested trees like 'mkdir app/configs' without '-p' when 'app/' folder doesn't exist, leading to a 'No such file or directory' error.",
+                tip: "Create multiple subdirectories simultaneously in a single command using brace expansion: 'mkdir -p project/{src,bin,tests}'.",
+                mockResponse: "Directory structures created successfully."
+            },
+            {
+                name: "rm",
+                category: "file",
+                definition: "Deletes specified file records or recursively removes complete directory structures from filesystems.",
+                syntax: "rm [options] targets",
+                example: "rm -rf /tmp/cache_folder",
+                sampleOutput: "(Silent execution. Folder and contents purged)",
+                explanation: "Deletes directory entries pointing to file inodes. By default, 'rm' does not remove directories; using the '-r' (recursive) flag forces it to traverse directories and delete everything. The '-f' (force) flag bypasses write-protect confirmation prompts.",
+                options: [
+                    { flag: "-r", desc: "Recursively delete directories and all nested contents" },
+                    { flag: "-f", desc: "Force deletion; ignore nonexistent files and never prompt user verification" },
+                    { flag: "-i", desc: "Prompt user for interactive confirmation before every file removal step" }
+                ],
+                realWorld: "Cleaning up build artifacts inside compilation servers, removing temporary files and logs.",
+                pitfall: "Accidentally running 'rm -rf /' or utilizing relative targets containing spaces (e.g. 'rm -rf /home/munna/ myfolder' where the space after '/' makes it delete root files). ALWAYS double-check your path syntax.",
+                tip: "Use the interactive flag '-i' when executing deletions inside critical directories to prevent accidental cleanups.",
+                mockResponse: "Target files and folders deleted permanently."
+            },
+            {
+                name: "touch",
+                category: "file",
+                definition: "Updates the access and modification timestamps of a file, or creates an empty file if the specified filename doesn't exist.",
+                syntax: "touch [options] filename",
+                example: "touch server.js",
+                sampleOutput: "(Silent on execution)",
+                explanation: "Modifies file timestamps. If the target file doesn't exist, it creates a 0-byte text file. This is highly useful for initializing files before scripting or writing content.",
+                options: [
+                    { flag: "-a", desc: "Change the file access time only" },
+                    { flag: "-m", desc: "Change the file modification time only" },
+                    { flag: "-c", desc: "Do not create any new file if it does not exist" }
+                ],
+                realWorld: "Creating empty log tracker files before setting up write streams, or resetting modification timestamps to trigger build watch tools.",
+                pitfall: "Using touch on existing files thinking it clears content. Touch never alters or wipes file contents; it only modifies timestamps.",
+                tip: "Quickly create multiple source files in one line: 'touch index.html style.css app.js'.",
+                mockResponse: "File timestamps updated (or new empty file generated)."
+            },
+            // Text and Viewing
+            {
+                name: "cat",
+                category: "text",
+                definition: "Concatenates and displays content of text files, or redirects input to write to new files.",
+                syntax: "cat [options] [filenames]",
+                example: "cat -n config.json",
+                sampleOutput: "     1  {\n     2    \"port\": 3000,\n     3    \"db\": \"mongodb\"\n     4  }",
+                explanation: "Stands for 'Concatenate'. It reads files sequentially and writes their contents directly to standard output. While popular for reading small files, its primary design purpose is joining multiple file streams together.",
+                options: [
+                    { flag: "-n", desc: "Prepend line numbers to all output lines" },
+                    { flag: "-b", desc: "Prepend line numbers to non-empty output lines only" },
+                    { flag: "-s", desc: "Squeeze consecutive empty output lines into a single empty line" }
+                ],
+                realWorld: "Quickly reviewing system configs or writing file contents directly from shell inputs using redirection: 'cat <<EOF > config.txt'.",
+                pitfall: "Using 'cat' to read massive log files (e.g. 5GB). This dumps the entire file content into the terminal, freezing your session. Use pager commands like 'less' or 'tail' instead.",
+                tip: "To display file content with invisible end-of-line markers and tab characters, use 'cat -A filename'.",
+                mockResponse: "Sample text file output content generated by CodeWithMunnaX."
+            },
+            {
+                name: "grep",
+                category: "text",
+                definition: "Searches files or standard input streams for lines matching a specified pattern or regular expression.",
+                syntax: "grep [options] pattern [files]",
+                example: "grep -rnw '/etc/' -e 'server_name'",
+                sampleOutput: "/etc/nginx/nginx.conf:32:    server_name localhost;",
+                explanation: "Stands for 'Global Regular Expression Print'. It scans input line-by-line, matching characters against regex queries, and outputs matching lines. An indispensable debugging tool for log analysis.",
+                options: [
+                    { flag: "-i", desc: "Perform case-insensitive matches" },
+                    { flag: "-r", desc: "Read all files under each directory recursively" },
+                    { flag: "-n", desc: "Prefix each line of output with its 1-based line number" },
+                    { flag: "-v", desc: "Invert match: select only non-matching lines" },
+                    { flag: "-E", desc: "Treat pattern as an extended regular expression (ERE)" }
+                ],
+                realWorld: "Searching through server access logs to count unique error occurrences: 'cat access.log | grep -c '500''.",
+                pitfall: "Neglecting to quote patterns containing special shell characters (like *, ?, $), which might cause the shell to expand them before passing them to grep.",
+                tip: "Combine grep with process tools: 'ps aux | grep node' to check if a specific process is active.",
+                mockResponse: "32: server_name codewithmunnax.com;"
+            },
+            {
+                name: "chmod",
+                category: "permission",
+                definition: "Modifies access permissions (Read, Write, Execute) for owner, group, and others on files and folders.",
+                syntax: "chmod [permissions] filename",
+                example: "chmod 755 deploy.sh",
+                sampleOutput: "(Silent on execution)",
+                explanation: "Changes file mode bits. In octal notation, digits represent Owner, Group, and Public users. Read=4, Write=2, Execute=1. Thus, 7 (4+2+1) grants full access, 5 (4+1) grants read/execute, and 4 grants read-only access.",
+                options: [
+                    { flag: "-R", desc: "Change file permissions recursively across directories and contents" },
+                    { flag: "+x", desc: "Grant execute permissions to all users" },
+                    { flag: "u+g", desc: "Grant user owner permissions equal to group permissions" }
+                ],
+                realWorld: "Enabling execute permissions on a shell script to make it runnable: 'chmod +x build.sh'.",
+                pitfall: "Applying 'chmod -R 777' on critical directories (like /var or /etc). This creates severe security issues and can break system services that require strict permissions.",
+                tip: "Understand permission bits: '755' means rwxr-xr-x. Use symbolic mode ('chmod u+x') for targeted tweaks.",
+                mockResponse: "Permissions successfully changed to the target mode."
+            },
+            {
+                name: "sudo",
+                category: "permission",
+                definition: "Allows a permitted user to execute commands with superuser (root) privileges or as another user.",
+                syntax: "sudo [options] command",
+                example: "sudo apt update && sudo apt upgrade -y",
+                sampleOutput: "[sudo] password for munna:\nGet:1 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]",
+                explanation: "Stands for 'Superuser Do'. It checks the /etc/sudoers configuration file to verify user permissions. If authorized, it launches the target command with root privileges, prompting for the user's password to authenticate.",
+                options: [
+                    { flag: "-i", desc: "Launch an interactive root shell (login session)" },
+                    { flag: "-u", desc: "Execute the command as a user other than root" }
+                ],
+                realWorld: "Running system updates, installing packages, editing configuration files, and managing system services.",
+                pitfall: "Running every command with 'sudo' unnecessarily, which can lead to permission issues with user-owned configuration files.",
+                tip: "To quickly run the previous command with sudo, type 'sudo !!'.",
+                mockResponse: "Privileges elevated successfully. Running system task."
+            },
+            {
+                name: "ping",
+                category: "network",
+                definition: "Sends ICMP ECHO_REQUEST packets to network hosts to test connectivity and measure round-trip times.",
+                syntax: "ping [options] host",
+                example: "ping -c 4 8.8.8.8",
+                sampleOutput: "PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.\n64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=12.4 ms\n\n--- 8.8.8.8 ping statistics ---\n4 packets transmitted, 4 received, 0% packet loss",
+                explanation: "Tests network reachability. It sends an Internet Control Message Protocol (ICMP) packet to the target IP or domain, which responds with an echo reply. Measures latency and packet loss rates.",
+                options: [
+                    { flag: "-c", desc: "Stop after sending a specified number of packets" },
+                    { flag: "-i", desc: "Interval: wait specified seconds between sending each packet" }
+                ],
+                realWorld: "Troubleshooting local network connections and validating domain resolution or active internet connectivity.",
+                pitfall: "Running ping without a count limit on Linux will run indefinitely, unlike Windows. Always specify '-c' or stop manually with 'Ctrl + C'.",
+                tip: "A successful ping proves network connectivity, but some hosts block ICMP packets, meaning a failed ping doesn't always mean a host is offline.",
+                mockResponse: "64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=12.2 ms\nPacket loss: 0%"
+            },
+            {
+                name: "curl",
+                category: "network",
+                definition: "Command-line tool to transfer data from or to a server using various protocols (HTTP, HTTPS, FTP, etc.).",
+                syntax: "curl [options] URL",
+                example: "curl -fsSL https://get.docker.com -o get-docker.sh",
+                sampleOutput: "(Downloads Docker install script and writes to file)",
+                explanation: "Enables programmatic interactions with web endpoints. Widely used for making API calls, downloading files, testing endpoints, and checking HTTP headers.",
+                options: [
+                    { flag: "-O", desc: "Save output to a local file named after the remote file resource" },
+                    { flag: "-I", desc: "Fetch HTTP headers only" },
+                    { flag: "-d", desc: "Send specified HTTP POST data payloads" },
+                    { flag: "-H", desc: "Pass custom headers to the server (e.g., Auth tokens)" }
+                ],
+                realWorld: "Testing REST API endpoints and downloading configuration scripts during server setup pipelines.",
+                pitfall: "Running curl on URLs that redirect without the '-L' flag. Curl will display a blank screen or a redirect warning instead of resolving the target page.",
+                tip: "Combine '-fsSL' for a silent, failure-safe file download pipeline.",
+                mockResponse: "HTTP/2 200 OK\ncontent-type: application/json\n\n{\"status\": \"active\"}"
+            }
+        ];
+
+        // Render functions
+        const gridContainer = document.getElementById('commandsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryItems = document.querySelectorAll('.category-item');
+        const themeBtn = document.getElementById('themeBtn');
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalBody = document.getElementById('terminalBody');
+
+        let currentCategory = 'all';
+
+        function renderCommands() {
+            gridContainer.innerHTML = '';
+            const searchVal = searchInput.value.toLowerCase();
+
+            const filtered = commandsData.filter(cmd => {
+                const matchesCategory = currentCategory === 'all' || cmd.category === currentCategory;
+                const matchesSearch = cmd.name.toLowerCase().includes(searchVal) || 
+                                      cmd.definition.toLowerCase().includes(searchVal) ||
+                                      cmd.explanation.toLowerCase().includes(searchVal) ||
+                                      cmd.syntax.toLowerCase().includes(searchVal);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                gridContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+                        <i class="fa-solid fa-magnifying-glass" style="font-size: 3rem; margin-bottom: 15px; display: block; opacity: 0.5;"></i>
+                        No commands found matching your criteria. Try searching for something else.
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(cmd => {
+                const card = document.createElement('div');
+                card.className = 'command-card';
+                card.setAttribute('data-id', cmd.name);
+
+                // Option rows generator
+                let optionsHtml = '';
+                if (cmd.options && cmd.options.length > 0) {
+                    optionsHtml = `
+                        <div class="command-detail-label"><i class="fa-solid fa-gears"></i> Common Flags & Options</div>
+                        <table class="options-table">
+                            <thead>
+                                <tr>
+                                    <th>Option</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${cmd.options.map(opt => `
+                                    <tr>
+                                        <td><code>${opt.flag}</code></td>
+                                        <td>${opt.desc}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="command-header">
+                        <div class="command-name">${cmd.name}</div>
+                        <span class="command-badge">${cmd.category}</span>
+                    </div>
+                    <div class="command-desc">${cmd.definition}</div>
+                    
+                    <div class="command-detail-label"><i class="fa-solid fa-terminal"></i> Command Syntax</div>
+                    <div class="command-syntax-box">
+                        <pre>${cmd.syntax}</pre>
+                        <button class="copy-btn" onclick="copyText('${cmd.syntax}', this)">Copy</button>
+                    </div>
+
+                    <div class="command-detail-label"><i class="fa-solid fa-code"></i> Real-World Example</div>
+                    <div class="command-example-box">
+                        <pre>${cmd.example}</pre>
+                        <button class="copy-btn" onclick="copyText('${cmd.example}', this)">Copy</button>
+                    </div>
+
+                    <div class="command-detail-label"><i class="fa-solid fa-print"></i> Sample Output</div>
+                    <pre style="background: #1e293b; color: #cbd5e1; margin-bottom: 25px;">${cmd.sampleOutput}</pre>
+
+                    <div class="command-detail-label"><i class="fa-solid fa-circle-info"></i> In-depth Mechanism Explanation</div>
+                    <p style="margin-bottom: 25px; font-size: 1rem; color: var(--text-main); line-height: 1.7; text-align: justify;">${cmd.explanation}</p>
+
+                    <div class="details-extra">
+                        <div class="extra-box">
+                            <div class="command-detail-label" style="margin-bottom: 5px; color: var(--accent-indigo);"><i class="fa-solid fa-briefcase"></i> Real-World Scenario</div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">${cmd.realWorld}</p>
+                        </div>
+                        <div class="extra-box pitfall">
+                            <div class="command-detail-label" style="margin-bottom: 5px; color: var(--accent-rose);"><i class="fa-solid fa-circle-exclamation"></i> Common Pitfall / Mistake</div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">${cmd.pitfall}</p>
+                        </div>
+                    </div>
+
+                    ${optionsHtml}
+
+                    <div class="tip-box">
+                        <strong>💡 CodeWithMunnaX Tip:</strong> ${cmd.tip}
+                    </div>
+                `;
+
+                gridContainer.appendChild(card);
+            });
+        }
+
+        // Copy Code utility helper
+        window.copyText = function(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = 'Copied!';
+                btn.style.backgroundColor = 'var(--accent-emerald)';
+                btn.style.color = '#fff';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                    btn.style.color = 'var(--text-muted)';
+                }, 2000);
+            });
+        }
+
+        // Live Search Input Listener
+        searchInput.addEventListener('input', renderCommands);
+
+        // Category Filter Toggles
+        categoryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                categoryItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                currentCategory = item.getAttribute('data-category');
+                renderCommands();
+            });
+        });
+
+        // Theme Switcher Toggle Action
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const targetTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', targetTheme);
+            
+            const icon = themeBtn.querySelector('i');
+            if (targetTheme === 'light') {
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                icon.className = 'fa-solid fa-moon';
+            }
+        });
+
+        // Interactive Terminal Command Processors
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const commandString = this.value.trim();
+                this.value = '';
+                
+                if (commandString === '') return;
+
+                // Create terminal input trace line
+                const inputLine = document.createElement('div');
+                inputLine.className = 'terminal-line';
+                inputLine.innerHTML = `<span class="terminal-prompt">munna@server:~$</span> <span>${escapeHtml(commandString)}</span>`;
+                
+                // Add output line before target cursor input container
+                const inputParent = terminalInput.closest('.terminal-line');
+                terminalBody.insertBefore(inputLine, inputParent);
+
+                // Run simulator response routing
+                processTerminalCommand(commandString);
+                
+                // Keep scrolled to bottom
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+            }
+        });
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function printTerminalOutput(text) {
+            const outputDiv = document.createElement('div');
+            outputDiv.className = 'terminal-output';
+            outputDiv.innerHTML = text.replace(/\n/g, '<br>');
+            const inputParent = terminalInput.closest('.terminal-line');
+            terminalBody.insertBefore(outputDiv, inputParent);
+        }
+
+        function processTerminalCommand(cmdText) {
+            const tokens = cmdText.split(/\s+/);
+            const primaryCmd = tokens[0].toLowerCase();
+
+            if (primaryCmd === 'help') {
+                printTerminalOutput(`Available commands: help, clear, theme, list, and all documented commands (pwd, ls, cd, touch, rm, cat, grep, chmod, sudo, ping, curl).\n\nType a command to simulate its behavior!`);
+                return;
+            }
+
+            if (primaryCmd === 'clear') {
+                // Clear simulated commands but preserve welcoming banner
+                const lines = Array.from(terminalBody.querySelectorAll('.terminal-line, .terminal-output'));
+                lines.forEach(l => {
+                    if (l !== terminalInput.closest('.terminal-line')) {
+                        l.remove();
+                    }
+                });
+                return;
+            }
+
+            if (primaryCmd === 'list') {
+                const list = commandsData.map(c => c.name).join(', ');
+                printTerminalOutput(`Documented command list: ${list}`);
+                return;
+            }
+
+            if (primaryCmd === 'theme') {
+                themeBtn.click();
+                printTerminalOutput(`Theme toggled successfully.`);
+                return;
+            }
+
+            // Find matching command database item
+            const match = commandsData.find(c => c.name.toLowerCase() === primaryCmd);
+            if (match) {
+                printTerminalOutput(match.mockResponse);
+                // Scroll page content to command card for visual feedback
+                const targetCard = document.querySelector(`[data-id="${match.name}"]`);
+                if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    targetCard.style.transition = 'none';
+                    targetCard.style.borderColor = 'var(--accent-emerald)';
+                    targetCard.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.5)';
+                    setTimeout(() => {
+                        targetCard.style.transition = 'var(--transition-smooth)';
+                        targetCard.style.borderColor = 'var(--border-color)';
+                        targetCard.style.boxShadow = '';
+                    }, 2000);
+                }
+            } else {
+                printTerminalOutput(`bash: ${primaryCmd}: command not found. Try 'help' to see active commands.`);
+            }
+        }
+
+        // Initialize display
+        renderCommands();
+    </script>
+</body>
+</html>
